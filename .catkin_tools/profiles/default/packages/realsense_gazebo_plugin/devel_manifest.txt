@@ -1,0 +1,5 @@
+vision/realsense_gazebo_plugin
+/home/rpp/rpp_ws/devel/.private/realsense_gazebo_plugin/lib/librealsense_gazebo_plugin.so /home/rpp/rpp_ws/devel/lib/librealsense_gazebo_plugin.so
+/home/rpp/rpp_ws/devel/.private/realsense_gazebo_plugin/lib/pkgconfig/realsense_gazebo_plugin.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/realsense_gazebo_plugin.pc
+/home/rpp/rpp_ws/devel/.private/realsense_gazebo_plugin/share/realsense_gazebo_plugin/cmake/realsense_gazebo_pluginConfig-version.cmake /home/rpp/rpp_ws/devel/share/realsense_gazebo_plugin/cmake/realsense_gazebo_pluginConfig-version.cmake
+/home/rpp/rpp_ws/devel/.private/realsense_gazebo_plugin/share/realsense_gazebo_plugin/cmake/realsense_gazebo_pluginConfig.cmake /home/rpp/rpp_ws/devel/share/realsense_gazebo_plugin/cmake/realsense_gazebo_pluginConfig.cmake

@@ -1,0 +1,8 @@
+application/bt_task_manager
+/home/rpp/rpp_ws/devel/.private/bt_task_manager/bin/grasp_node /home/rpp/rpp_ws/devel/bin/grasp_node
+/home/rpp/rpp_ws/devel/.private/bt_task_manager/bin/controller_node /home/rpp/rpp_ws/devel/bin/controller_node
+/home/rpp/rpp_ws/devel/.private/bt_task_manager/lib/pkgconfig/bt_task_manager.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/bt_task_manager.pc
+/home/rpp/rpp_ws/devel/.private/bt_task_manager/lib/python3/dist-packages/bt_task_manager/__init__.py /home/rpp/rpp_ws/devel/lib/python3/dist-packages/bt_task_manager/__init__.py
+/home/rpp/rpp_ws/devel/.private/bt_task_manager/lib/bt_task_manager/controller_node /home/rpp/rpp_ws/devel/lib/bt_task_manager/controller_node
+/home/rpp/rpp_ws/devel/.private/bt_task_manager/share/bt_task_manager/cmake/bt_task_managerConfig.cmake /home/rpp/rpp_ws/devel/share/bt_task_manager/cmake/bt_task_managerConfig.cmake
+/home/rpp/rpp_ws/devel/.private/bt_task_manager/share/bt_task_manager/cmake/bt_task_managerConfig-version.cmake /home/rpp/rpp_ws/devel/share/bt_task_manager/cmake/bt_task_managerConfig-version.cmake

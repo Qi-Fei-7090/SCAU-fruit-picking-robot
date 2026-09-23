@@ -1,0 +1,29 @@
+<launch>
+
+
+    <param name="robot_description"
+        command="$(find xacro)/xacro $(find mmc1_description)/urdf/mmc1.urdf.xacro" />
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+        <param name="use_gui" value="false" />
+    </node>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="20.0" />
+    </node>
+
+
+    <!-- start imu  -->
+    <include file="$(find wit_node)/launch/wit.launch">
+        <arg name="port" value="/dev/ttyUSB1" />
+    </include>
+
+    <include file="$(find lakibeam1)/launch/lakibeam1_scan_front.launch">
+    </include>
+
+    <include file="$(find lidar_undistortion)/launch/lidar_undistortion_online.launch">
+     <arg name="use_remap_scan" value="false" />
+
+    </include>
+    <include file="$(find robuster_driver)/launch/driver.launch" />
+
+
+</launch>

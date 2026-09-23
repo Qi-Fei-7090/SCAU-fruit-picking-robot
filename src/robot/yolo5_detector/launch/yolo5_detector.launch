@@ -1,0 +1,30 @@
+<launch>
+  <arg name="process_mode" default="fork"/><!-- spawn/fork --> <!--多进程模式 -->
+  <arg name="compress_img" default="False"/><!-- True/False --><!--是否使用压缩话题输入 -->
+
+  <!--根据相机个数动态添加-->
+  <arg name="camera_num" default="1"/><!--相机个数-->
+  <arg name="camera_prefix" default="camera"/>
+  <!--图像的话题，除去前缀部分后剩余部分-->
+  <arg name="colors_frame" default="/color/image_raw"/>
+  <arg name="colors_compressed_frame" default="/color/image_raw/compressed"/>
+  <arg name="depth_frame" default="/aligned_depth_to_color/image_raw"/>
+  <arg name="caminfo_frame" default="/color/camera_info"/>
+  <!--
+    单个相机叫：camera
+    多个相机叫：cameraX, X为相机序号
+               eg.camera1 camera2" 
+  -->
+   
+  <node name="yolo5_detector" pkg="yolo5_detector" type="yolo5rt_detector.py" output="screen" >
+    <param name="process_mode" value="$(arg process_mode)"/>
+    <param name="compress_img" value="$(arg compress_img)"/>
+    <param name="camera_num" value="$(arg camera_num)"/>
+    <param name="camera_prefix" value="$(arg camera_prefix)"/>
+    <param name="colors_frame" value="$(arg colors_frame)"/>
+    <param name="colors_compressed_frame" value="$(arg colors_compressed_frame)"/>
+    <param name="depth_frame" value="$(arg depth_frame)"/>
+    <param name="caminfo_frame" value="$(arg caminfo_frame)"/>
+  </node>
+  
+</launch>

@@ -1,0 +1,76 @@
+
+# ROS1 catkin 编译产物
+
+build/
+
+devel/
+
+install/
+
+logs/
+
+*.log
+
+
+
+# catkin 工作空间标记
+
+.catkin_workspace
+
+
+
+# CMake 缓存
+
+CMakeCache.txt
+
+CMakeFiles/
+
+cmake_install.cmake
+
+
+
+# Python 缓存
+
+__pycache__/
+
+*.py[cod]
+
+
+
+# 编辑器配置
+
+.vscode/
+
+.idea/
+
+*.swp
+
+*~
+
+
+
+# 系统文件
+
+.DS_Store
+
+
+
+# 可选：大文件，按需启用
+
+# *.bag
+
+
+
+
+# 大文件：模型权重、压缩包
+
+*.wts
+
+*.zip
+
+*.bag
+
+*.pt
+
+*.onnx
+

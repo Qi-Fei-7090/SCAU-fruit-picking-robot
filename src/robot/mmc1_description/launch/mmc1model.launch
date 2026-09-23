@@ -1,0 +1,23 @@
+<launch>
+    <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find mmc1_description)/urdf/mmc1.urdf.xacro'" />
+    
+    <!-- 是否启动 GUI -->
+    <arg name="gui" default="True" />
+    
+    <!-- 是否使用 joint_state_publisher -->
+    <arg name="use_joint_state_publisher" default="True" />
+    
+    <!-- 加载机器人描述参数 -->
+    <param name="robot_description" command="$(arg urdf_file)" />
+
+    <!-- 条件启动 joint_state_publisher 节点 -->
+    <group if="$(arg use_joint_state_publisher)">
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+        <node if="$(arg gui)" name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+    </group>
+
+    <!-- 启动 robot_state_publisher 节点 -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="50.0" />
+    </node>
+</launch>

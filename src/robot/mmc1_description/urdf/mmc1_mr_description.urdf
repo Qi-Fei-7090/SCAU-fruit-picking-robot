@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="mmc1_mr">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.024749 0.0027022 0.050441"
+        rpy="0 0 0" />
+      <mass
+        value="18" />
+      <inertia
+        ixx="0.021933"
+        ixy="0.00047885"
+        ixz="0.0012726"
+        iyy="0.027828"
+        iyz="-0.00011003"
+        izz="0.045622" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/base_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62 0.62 0.62 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/base_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="base_black_link">
+    <inertial>
+      <origin
+        xyz="0.0030623 4.2491E-06 -0.054227"
+        rpy="0 0 0" />
+      <mass
+        value="11" />
+      <inertia
+        ixx="0.01124"
+        ixy="-3.9646E-07"
+        ixz="9.4683E-06"
+        iyy="0.009435"
+        iyz="1.3728E-08"
+        izz="0.020524" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/base_black_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/base_black_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_black_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0021657 0 0.1537"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="base_black_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="front_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-1.0457E-05 -0.009711 1.2528E-05"
+        rpy="0 0 0" />
+      <mass
+        value="1.5" />
+      <inertia
+        ixx="0.0023806"
+        ixy="-5.1799E-09"
+        ixz="3.3691E-07"
+        iyy="0.004547"
+        iyz="4.7143E-09"
+        izz="0.0023798" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/front_left_wheel_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/front_left_wheel_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.175 0.28005 0.052199"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_left_wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="front_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="5.9336E-06 0.0097111 -1.4936E-05"
+        rpy="0 0 0" />
+      <mass
+        value="1.5" />
+      <inertia
+        ixx="0.0023802"
+        ixy="-3.3583E-09"
+        ixz="5.1898E-07"
+        iyy="0.0045471"
+        iyz="6.8879E-09"
+        izz="0.0023801" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/front_right_wheel_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/front_right_wheel_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.175 -0.28005 0.052202"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_right_wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="rear_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-1.1327E-05 -0.009711 1.1649E-05"
+        rpy="0 0 0" />
+      <mass
+        value="1.5" />
+      <inertia
+        ixx="0.0023805"
+        ixy="-5.5206E-09"
+        ixz="3.8945E-07"
+        iyy="0.004547"
+        iyz="4.432E-09"
+        izz="0.0023798" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/rear_left_wheel_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/rear_left_wheel_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.174998131093904 0.280049999999999 0.052198748930327"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_left_wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="rear_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="6.0975E-06 0.009711 -1.5028E-05"
+        rpy="0 0 0" />
+      <mass
+        value="1.5" />
+      <inertia
+        ixx="0.0023802"
+        ixy="-5.727E-09"
+        ixz="5.1897E-07"
+        iyy="0.0045471"
+        iyz="8.2022E-09"
+        izz="0.0023801" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/rear_right_wheel_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/rear_right_wheel_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.175 -0.28005 0.052202"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_right_wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="navi_tool_silver_link">
+    <inertial>
+      <origin
+        xyz="0.018841 -0.00012546 0.058135"
+        rpy="0 0 0" />
+      <mass
+        value="4" />
+      <inertia
+        ixx="0.0087345"
+        ixy="1.3619E-06"
+        ixz="-6.4658E-05"
+        iyy="0.010197"
+        iyz="-9.6238E-07"
+        izz="0.016356" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/navi_tool_silver_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62 0.62 0.62 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/navi_tool_silver_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="navi_tool_silver_joint"
+    type="fixed">
+    <origin
+      xyz="0.0039305 8.5407E-05 0.1722"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="navi_tool_silver_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="navi_tool_black_link">
+    <inertial>
+      <origin
+        xyz="-0.14514 0.00011961 -0.00048361"
+        rpy="0 0 0" />
+      <mass
+        value="3" />
+      <inertia
+        ixx="0.020614"
+        ixy="2.8801E-06"
+        ixz="-0.0024088"
+        iyy="0.0095521"
+        iyz="-1.5725E-06"
+        izz="0.026573" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/navi_tool_black_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/navi_tool_black_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="navi_tool_black_joint"
+    type="fixed">
+    <origin
+      xyz="0.000225099929230491 0 0.3032"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="navi_tool_black_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="imu_link">
+    <inertial>
+      <origin
+        xyz="0 -0.0028567 0.011065"
+        rpy="0 0 0" />
+      <mass
+        value="0.3" />
+      <inertia
+        ixx="1.0867E-05"
+        ixy="5.1072E-20"
+        ixz="-2.1104E-21"
+        iyy="5.8923E-06"
+        iyz="2.3558E-07"
+        izz="1.3182E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/imu_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/imu_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="0.051564 0 0.1852"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="laser_F_link">
+    <inertial>
+      <origin
+        xyz="-0.000703 0.00013361 0.026328"
+        rpy="0 0 0" />
+      <mass
+        value="0.5" />
+      <inertia
+        ixx="4.0851E-05"
+        ixy="-8.5077E-08"
+        ixz="2.92E-07"
+        iyy="4.0004E-05"
+        iyz="1.3035E-07"
+        izz="3.5002E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/laser_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/laser_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="laser_F_joint"
+    type="fixed">
+    <origin
+      xyz="0.18095 0 0.1732"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="laser_F_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="antenna_1_link">
+    <inertial>
+      <origin
+        xyz="0 -2.2119E-09 -0.056295"
+        rpy="0 0 0" />
+      <mass
+        value="0.3" />
+      <inertia
+        ixx="1.2899E-05"
+        ixy="9.534E-30"
+        ixz="-2.1853E-21"
+        iyy="1.2899E-05"
+        iyz="-3.1472E-13"
+        izz="1.3576E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/antenna_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/antenna_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="antenna_1_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0657243758272412 0.182794228634097 0.4167"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="antenna_1_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="antenna_2_link">
+    <inertial>
+      <origin
+        xyz="0 -2.2119E-09 -0.056295"
+        rpy="0 0 0" />
+      <mass
+        value="0.3" />
+      <inertia
+        ixx="1.2899E-05"
+        ixy="4.2733E-29"
+        ixz="4.2017E-23"
+        iyy="1.2899E-05"
+        iyz="-3.1472E-13"
+        izz="1.3576E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/antenna_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/antenna_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="antenna_2_joint"
+    type="fixed">
+    <origin
+      xyz="-0.065724 0 0.4167"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="antenna_2_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="antenna_3_link">
+    <inertial>
+      <origin
+        xyz="0 -2.2119E-09 -0.056295"
+        rpy="0 0 0" />
+      <mass
+        value="0.3" />
+      <inertia
+        ixx="1.2899E-05"
+        ixy="8.6398E-29"
+        ixz="1.6765E-22"
+        iyy="1.2899E-05"
+        iyz="-3.1472E-13"
+        izz="1.3576E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/antenna_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/antenna_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="antenna_3_joint"
+    type="fixed">
+    <origin
+      xyz="-0.065724 -0.18279 0.4167"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="antenna_3_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="arm_link">
+    <inertial>
+      <origin
+        xyz="-3.7297E-17 -9.6104E-16 -0.0025"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia
+        ixx="0.0011629"
+        ixy="5.4504E-11"
+        ixz="6.0854E-22"
+        iyy="0.00011851"
+        iyz="-2.7115E-21"
+        izz="0.0012809" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/arm_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/arm_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_joint"
+    type="fixed">
+    <origin
+      xyz="0.12581 0 0.3292"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="arm_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="power_link">
+    <inertial>
+      <origin
+        xyz="6.4588E-05 6.0729E-06 0.013207"
+        rpy="0 0 0" />
+      <mass
+        value="0.3" />
+      <inertia
+        ixx="5.0048E-05"
+        ixy="3.1114E-08"
+        ixz="-3.1303E-07"
+        iyy="6.9077E-05"
+        iyz="3.693E-09"
+        izz="0.00010228" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/power_link_sc.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.03 0.03 0.03 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mmc1_description/meshes/power_link_sc.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="power_joint"
+    type="fixed">
+    <origin
+      xyz="0.12523 0.095999 0.3292"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="power_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

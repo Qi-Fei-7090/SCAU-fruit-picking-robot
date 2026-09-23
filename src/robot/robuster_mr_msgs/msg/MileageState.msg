@@ -1,0 +1,2 @@
+float64 total_mileage
+float64 relative_mileage

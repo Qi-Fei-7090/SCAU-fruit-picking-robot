@@ -1,0 +1,9 @@
+name: ""
+repeat: true
+tasks:
+  -
+    position: [-11.5,12 ,130]
+    action: pick
+  -
+    position: [-8,10 ,-30]
+    action: place

@@ -1,0 +1,58 @@
+DWAPlannerROS:
+
+# 机器人配置参数 - Kobuki
+  max_vel_x: 0.8          # 最大线速度（前进）
+  min_vel_x: 0.0          # 最小线速度（前进）
+
+  max_vel_y: 0.0          # 最大线速度（侧向） - 差分驱动机器人
+  min_vel_y: 0.0          # 最小线速度（侧向） - 差分驱动机器人
+
+  max_trans_vel: 0.8      # 最大平移速度
+  min_trans_vel: 0.0      # 当旋转速度可以忽略不计时的最小平移速度
+  trans_stopped_vel: 0.1  # 当旋转速度可以忽略不计时的停止速度
+
+  max_vel_theta: 0.7      # 最大旋转速度
+  min_vel_theta: 0.0      # 最小旋转速度
+  max_vel_trans: 0.8      # 最大平移速度
+  min_vel_trans: 0.0      # 最小平移速度
+  theta_stopped_vel: 0.1  # 当平移速度可以忽略不计时的停止速度
+  # 警告！
+  # 不要将 min_trans_vel 设置为 0.0，否则 DWA 会一直认为平移速度是非常小但不可忽略的，导致生成小的原地旋转速度。
+
+  max_rot_vel: 0.7        # 最大角速度
+  min_rot_vel: 0.0        # 当平移速度可以忽略不计时的最小角速度
+  rot_stopped_vel: 0.4    # 当平移速度可以忽略不计时的停止速度
+  
+  acc_lim_x: 1.0          # X方向上的最大加速度（理论上为2.0，但为了安全起见，选择较小值）
+  acc_lim_theta: 5         # 旋转方向上的最大加速度
+  acc_lim_y: 0.0          # Y方向上的最大加速度 - 差分驱动机器人
+
+# 目标容忍度参数
+  yaw_goal_tolerance: 0.3 # 目标角度的容忍度
+  xy_goal_tolerance: 0.15 # 目标点的XY容忍度
+  # latch_xy_goal_tolerance: false
+
+# 前向模拟参数
+  sim_time: 1.0           # 前向模拟的时间
+  vx_samples: 6           # X方向上的速度样本数
+  vy_samples: 1           # Y方向上的速度样本数 - 差分驱动机器人只有一个样本
+  vtheta_samples: 10      # 旋转方向上的速度样本数
+
+# 轨迹评分参数
+  path_distance_bias: 32.0      # 全局路径规划的权重
+  goal_distance_bias: 24.0      # 达到目标的权重
+  occdist_scale: 0.5            # 避免障碍物的权重
+  forward_point_distance: 0.325 # 额外评分点的位置
+  stop_time_buffer: 0.2         # 在发生碰撞之前，机器人必须停止的时间
+  scaling_speed: 0.25           # 开始缩放机器人足迹的绝对速度
+  max_scaling_factor: 0.2       # 在高速行驶时缩放机器人足迹的程度
+
+# 振荡预防参数
+  oscillation_reset_dist: 0.05  # 在重置振荡标志之前移动的距离
+
+# 调试参数
+  publish_traj_pc: true          # 发布轨迹点云
+  publish_cost_grid_pc: true     # 发布成本地图点云
+  global_frame_id: "map"         # 全局坐标系
+# 差分驱动机器人配置 - 是否必要？
+#  holonomic_robot: false

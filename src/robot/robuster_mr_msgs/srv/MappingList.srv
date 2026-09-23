@@ -1,0 +1,6 @@
+int16 msg
+---
+string[] names
+int16 state
+
+string message

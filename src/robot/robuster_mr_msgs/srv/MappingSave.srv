@@ -1,0 +1,4 @@
+string filename
+---
+int8 state
+string message

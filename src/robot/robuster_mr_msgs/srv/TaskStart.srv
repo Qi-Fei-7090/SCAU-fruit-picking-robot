@@ -1,0 +1,4 @@
+int16 msg
+---
+int16 status
+string message

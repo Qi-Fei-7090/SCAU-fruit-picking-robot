@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="two_finger_gripper">
+  <link name="gripper_link">
+    <inertial>
+      <origin xyz="0 0 0"  rpy="0 0 0" />
+      <mass value="0.76174" />
+      <inertia ixx="0.000673719313504642" ixy="-1.30755705487849E-08" ixz="-1.3262407834936E-06" iyy="0.000666781851440875" iyz="-1.80735801539484E-11" izz="0.00123663316539255" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mmc1_description/meshes/gripper/two_finger_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh  filename="package://mmc1_description/meshes/gripper/two_finger_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+	
+	 <!-- Gazebo -->
+    <gazebo reference="gripper_link">
+		<material>Gazebo/White</material>
+    </gazebo>
+	
+</robot>

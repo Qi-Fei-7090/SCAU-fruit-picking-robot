@@ -1,0 +1,215 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+import sys
+
+from numpy import place, repeat
+
+import rospy
+import py_trees
+import py_trees_ros
+import yaml
+
+import std_msgs.msg as std_msgs
+import std_srvs.srv as std_srvs
+
+from bt_task_manager.chassis_move import *
+from bt_task_manager.get_grasp_pose_from_topic import *
+from bt_task_manager.gripper import *
+from bt_task_manager.moveit_arm import *
+from bt_task_manager.navigation import *
+from bt_task_manager.rb_decorators import *
+
+class SUCCESS(py_trees.behaviour.Behaviour):
+    def __init__(self, name="Success"):
+        super(SUCCESS, self).__init__(name)
+
+    def update(self):
+        print(self.name)
+        return py_trees.common.Status.SUCCESS
+
+class TaskManager:
+    def __init__(self):
+        self.task_cfg = rospy.get_param('~task_cfg',"/home/robuster/xr1_ws/src/bt_task_manager/data/task_grasp.yaml")
+        self.task_name = ""
+        self.task_list = []
+        self.task_repeat = False
+
+        self.move_group_name = rospy.get_param('~move_group_name','left_arm')
+        self.gripper_name = rospy.get_param('~gripper_name','left_gripper')
+        self.gripper_action_ns = rospy.get_param('~gripper_action_ns','/left_arm/xarm_gripper/gripper_action')
+        self.target_frame = rospy.get_param('~target_frame','yolo5_obj_left_hand_camera_1')
+        self.base_frame = rospy.get_param('~base_frame','base_link')
+        self.camera_frame = rospy.get_param('~camera_frame','camera_color_optical_frame')
+        self.tcp_offset_x = rospy.get_param('~tcp_offset_x',0.0)
+        self.tcp_offset_y = rospy.get_param('~tcp_offset_y',-0.005)
+        self.tcp_offset_z = rospy.get_param('~tcp_offset_z',-0.15) # add gripper offset
+        self.arm_feed_depth = rospy.get_param('~arm_feed_depth',0.12)
+        self.grasp_angles_x = rospy.get_param('~grasp_angles_x',0)
+        self.grasp_angles_y = rospy.get_param('~grasp_angles_y',-90)
+        self.grasp_angles_z = rospy.get_param('~grasp_angles_z',180)
+        self.chassis_feed_depth = rospy.get_param('~chassis_feed_depth',10)
+        self.grasp_angles = [self.grasp_angles_x,self.grasp_angles_y,self.grasp_angles_z]
+
+        self.bb = py_trees.blackboard.Blackboard()
+        self.loadTask(self.task_cfg)
+        self.work_tree = self.create_work_tree(self.task_list)
+        self.tree = py_trees_ros.trees.BehaviourTree(self.create_root_tree(self.work_tree))
+        self.snapshot_visitor = py_trees.visitors.SnapshotVisitor()
+        self.tree.visitors.append(self.snapshot_visitor)
+        self.tree.add_post_tick_handler(self.post_tick_handler)
+        py_trees.logging.level = py_trees.logging.Level.INFO
+
+        self.status_pub = rospy.Publisher("~status", std_msgs.String, queue_size=5)
+        self.result_pub = rospy.Publisher("~result", std_msgs.String, queue_size=5)
+
+    def loadTask(self, cfg):
+        rf = open(cfg,"r")
+        crf = rf.read()
+        rf.close()
+        yaml_data = yaml.load(crf)
+        self.name = yaml_data["name"]
+        self.repeat = yaml_data["repeat"]
+        print("task name is [{}], repeat is [{}]".format(self.name, self.repeat))
+        self.bb.set("repeat", self.repeat)
+        self.task_list = yaml_data["tasks"]
+        print(self.task_list)
+
+    def setup(self):
+        return self.tree.setup(timeout=15)
+
+    def post_tick_handler(self, tree):
+        work_tree = tree.root.children[1].children[0].children[1]
+        work_state = work_tree.status
+        msg = std_msgs.String(data=str(work_state)[7:])
+        if work_state == py_trees.common.Status.SUCCESS or work_state == py_trees.common.Status.FAILURE:
+            self.result_pub.publish(msg)
+        self.status_pub.publish(msg)
+        # tree.root.logger.info("working state : [{}]".format(work_state))
+        # pass
+        # rospy.loginfo("\033[2J\033[;H" + py_trees.display.ascii_tree(tree.root, snapshot_information=self.snapshot_visitor))
+
+    def tick_tock(self):
+        self.tree.tick_tock(100)
+
+    def create_root_tree(self, work_subtree):
+        topics2bb = py_trees.composites.Sequence("Topics2BB")
+        start2bb = py_trees_ros.subscribers.EventToBlackboard(
+            name="Start2BB",
+            topic_name="~dashboard/start",
+            variable_name="event_start_button"
+        )
+        cancel2bb = py_trees_ros.subscribers.EventToBlackboard(
+            name="Cancel2BB",
+            topic_name="~dashboard/cancel",
+            variable_name="event_cancel_button"
+        )
+        priorities = py_trees.composites.Selector("Priorities")
+        idle = py_trees.behaviours.Running(name="Idle")
+
+        work = py_trees.composites.Sequence(name="Work")
+        is_start_requested = py_trees.blackboard.CheckBlackboardVariable(
+            name="Start?",
+            variable_name='event_start_button',
+            expected_value=True
+        )
+        cancelling = py_trees.composites.Sequence("Cancelling?")
+        is_cancel_requested = py_trees.blackboard.CheckBlackboardVariable(
+            name="Cancel?",
+            variable_name='event_cancel_button',
+            expected_value=True
+        )
+        reset = self.create_reset_tree()
+
+        work_loop = LoopWithCondition("Work Loop",work_subtree,"repeat")
+
+        work_or_be_cancelled = py_trees.composites.Selector("Work or Be Cancelled")
+        root = py_trees.composites.Parallel("Root")
+        root.add_children([topics2bb, priorities])
+        topics2bb.add_children([start2bb, cancel2bb])
+        priorities.add_children([work, idle])
+        work.add_children([is_start_requested, work_or_be_cancelled, reset])
+        work_or_be_cancelled.add_children([cancelling, work_loop])
+        cancelling.add_children([is_cancel_requested])
+
+        return root
+
+    def create_pick_tree(self, name):
+        seq = py_trees.composites.Sequence(name)
+        seq.add_children(
+            [
+                Gripper("open gripper", self.gripper_name, "open"),
+                ArmMoveToName("move to detect pose", self.move_group_name, goal="detect_pose"),
+                GetGraspPoseByTopic(
+                    "get grasp pose",
+                    base_frame=self.base_frame,
+                    camera_frame=self.camera_frame,
+                    target_type="",
+                    out_frame="grasp_pose",
+                    feed_depth=self.arm_feed_depth,
+                    offset_x=self.tcp_offset_x,
+                    offset_y=self.tcp_offset_y,
+                    offset_z=self.tcp_offset_z,
+                    grasp_angles=self.grasp_angles
+                ),
+                ArmMovetoPose("move to grasp pose", self.move_group_name, goal_name="grasp_pose"),
+                ArmMoveEndInCartesian("feed in", self.move_group_name, goal=[0, 0, self.arm_feed_depth, 0, 0, 0]),
+                Gripper("open gripper", self.gripper_name,"close"),
+                ArmMoveEndInCartesian("feed out", self.move_group_name, goal=[0, 0, -self.arm_feed_depth, 0, 0, 0]),
+                ArmMoveToName("move to reset", self.move_group_name, goal="reset_pose"),
+            ]
+        )
+        return seq
+
+    def create_place_tree(self, name):
+        seq = py_trees.composites.Sequence(name)
+        seq.add_children(
+            [
+                ArmMoveToName("move to place pose", self.move_group_name, goal="place_pose"),
+                Gripper("open gripper", self.gripper_name,"open"),
+                ArmMoveToName("move to reset", self.move_group_name, goal="reset_pose"),
+            ]
+        )
+        return seq
+
+    def create_work_tree(self, task_list):
+        task_seq = py_trees.composites.Sequence("work_seq")
+        index = 0
+        for it in task_list:
+            if "position" in it:
+                navi = Navigation(name="navigation_{}".format(index), goal=(it["position"]))
+                task_seq.add_child(navi)
+            if "action" in it:
+                if it["action"] == "pick":
+                    #chassis_feed_in = ChassisMove("chassis_feed_in_{}".format(index),"forward",self.chassis_feed_depth)
+                    #task_seq.add_child(chassis_feed_in)
+                    pick = self.create_pick_tree("pick_{}".format(index))
+                    task_seq.add_child(pick)
+                    #chassis_retreat_out = ChassisMove("chassis_retreat_out_{}".format(index),"backward",self.chassis_feed_depth)
+                    #task_seq.add_child(chassis_retreat_out)
+                if it["action"] == "place":
+                    #chassis_feed_in = ChassisMove("chassis_feed_in_{}".format(index),"forward",self.chassis_feed_depth)
+                    #task_seq.add_child(chassis_feed_in)
+                    place = self.create_place_tree("place_{}".format(index))
+                    task_seq.add_child(place)
+                    #chassis_retreat_out = ChassisMove("chassis_retreat_out_{}".format(index),"backward",self.chassis_feed_depth)
+                    #task_seq.add_child(chassis_retreat_out)
+            index += 1
+        return task_seq
+
+    def create_reset_tree(self):
+        return py_trees.decorators.FailureIsRunning(ArmMoveToName("move arm to reset", self.move_group_name, goal="reset_pose"),"move arm to reset")
+
+
+if __name__ == "__main__":
+    # Start ROS node
+    rospy.init_node("controller_node")
+    rospy.loginfo("controller node start.")
+
+    controller = TaskManager()
+    if not controller.setup():
+        rospy.logerr("failed to setup the tree, aborting.")
+        sys.exit(1)
+        
+    controller.tick_tock()
+

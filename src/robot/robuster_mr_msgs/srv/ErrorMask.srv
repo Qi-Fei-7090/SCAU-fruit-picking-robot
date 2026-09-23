@@ -1,0 +1,7 @@
+uint8  motor
+uint8  abnormal    # such as: emergency stop, overcurrent, overvoltage, undervoltage, temperature is too high or low, battery
+uint8  bumper
+uint8  communicate
+---
+int16  status
+string  status_msg

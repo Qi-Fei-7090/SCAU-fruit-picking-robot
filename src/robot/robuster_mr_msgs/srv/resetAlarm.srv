@@ -1,0 +1,9 @@
+
+int8  permission
+
+---
+uint8  result
+int16  status
+string  status_msg
+
+

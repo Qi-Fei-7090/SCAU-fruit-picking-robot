@@ -1,0 +1,40 @@
+<launch>
+  <include file="$(find robot_bringup)/launch/robot_driver.launch" />
+  <!-- <include file="$(find navigation_2d)/launch/slam_localization.launch"/> -->
+  <include file="$(find navigation_2d)/launch/amcl.launch" />
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find navigation_2d)/config/move_base.yaml" command="load" />
+
+    <rosparam file="$(find navigation_2d)/config/planner_navfn.yaml" command="load" />
+    <!--<rosparam
+    file="$(find navigation_2d)/config/planner_dwa.yaml" command="load"/>
+    <rosparam file="$(find navigation_2d)/config/planner_teb.yaml" command="load"/>-->
+
+    <!-- observation sources located in costmap_common.yaml -->
+    <rosparam file="$(find navigation_2d)/config/costmap_common.yaml" command="load"
+      ns="global_costmap" />
+    <rosparam file="$(find navigation_2d)/config/costmap_common.yaml" command="load"
+      ns="local_costmap" />
+
+    <!-- local costmap, needs size -->
+    <rosparam file="$(find navigation_2d)/config/costmap_local.yaml" command="load"
+      ns="local_costmap" />
+    <rosparam file="$(find navigation_2d)/config/costmap_global.yaml" command="load"
+      ns="global_costmap" />
+
+    <!-- <rosparam file="$(find navigation_2d)/config/homing_local_planner_params.yaml"
+      command="load" /> -->
+    <rosparam file="$(find navigation_2d)/config/mpc_last_params.yaml" command="load" />
+
+    <rosparam file="$(find navigation_2d)/config/teb_local_planner_params.yaml" command="load"
+      ns="/move_base/TebLocalPlannerROS" />
+
+    <rosparam file="$(find navigation_2d)/config/dwa_local_planner_params.yaml" command="load"
+      ns="/move_base/DWAPlannerROS" />
+  </node>
+
+  <!-- rviz -->
+  <node pkg="rviz" name="rviz_nav" type="rviz"
+    args="-d $(find navigation_2d)/rviz/rpp_navigation.rviz" />
+</launch>

@@ -1,0 +1,4 @@
+drivers/realsense-ros/realsense2_description
+/home/rpp/rpp_ws/devel/.private/realsense2_description/lib/pkgconfig/realsense2_description.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/realsense2_description.pc
+/home/rpp/rpp_ws/devel/.private/realsense2_description/share/realsense2_description/cmake/realsense2_descriptionConfig.cmake /home/rpp/rpp_ws/devel/share/realsense2_description/cmake/realsense2_descriptionConfig.cmake
+/home/rpp/rpp_ws/devel/.private/realsense2_description/share/realsense2_description/cmake/realsense2_descriptionConfig-version.cmake /home/rpp/rpp_ws/devel/share/realsense2_description/cmake/realsense2_descriptionConfig-version.cmake

@@ -1,0 +1,5 @@
+navigation/navigation/rotate_recovery
+/home/rpp/rpp_ws/devel/.private/rotate_recovery/lib/librotate_recovery.so /home/rpp/rpp_ws/devel/lib/librotate_recovery.so
+/home/rpp/rpp_ws/devel/.private/rotate_recovery/lib/pkgconfig/rotate_recovery.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/rotate_recovery.pc
+/home/rpp/rpp_ws/devel/.private/rotate_recovery/share/rotate_recovery/cmake/rotate_recoveryConfig-version.cmake /home/rpp/rpp_ws/devel/share/rotate_recovery/cmake/rotate_recoveryConfig-version.cmake
+/home/rpp/rpp_ws/devel/.private/rotate_recovery/share/rotate_recovery/cmake/rotate_recoveryConfig.cmake /home/rpp/rpp_ws/devel/share/rotate_recovery/cmake/rotate_recoveryConfig.cmake

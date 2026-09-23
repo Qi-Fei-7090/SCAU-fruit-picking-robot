@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: mmc1_description
+    relative_path: urdf/mmc1.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/mmc1.srdf
+  CONFIG:
+    author_name: robuster
+    author_email: robuster@robotplusplus.com.cn
+    generated_timestamp: 1701933422

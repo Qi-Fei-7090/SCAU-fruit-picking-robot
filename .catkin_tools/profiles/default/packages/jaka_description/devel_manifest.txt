@@ -1,0 +1,4 @@
+manipulator/jaka_robot/jaka_description
+/home/rpp/rpp_ws/devel/.private/jaka_description/lib/pkgconfig/jaka_description.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/jaka_description.pc
+/home/rpp/rpp_ws/devel/.private/jaka_description/share/jaka_description/cmake/jaka_descriptionConfig.cmake /home/rpp/rpp_ws/devel/share/jaka_description/cmake/jaka_descriptionConfig.cmake
+/home/rpp/rpp_ws/devel/.private/jaka_description/share/jaka_description/cmake/jaka_descriptionConfig-version.cmake /home/rpp/rpp_ws/devel/share/jaka_description/cmake/jaka_descriptionConfig-version.cmake

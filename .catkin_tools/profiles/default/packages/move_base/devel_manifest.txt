@@ -1,0 +1,13 @@
+navigation/navigation/move_base
+/home/rpp/rpp_ws/devel/.private/move_base/include/move_base/MoveBaseConfig.h /home/rpp/rpp_ws/devel/include/move_base/MoveBaseConfig.h
+/home/rpp/rpp_ws/devel/.private/move_base/lib/libmove_base.so /home/rpp/rpp_ws/devel/lib/libmove_base.so
+/home/rpp/rpp_ws/devel/.private/move_base/lib/move_base/move_base /home/rpp/rpp_ws/devel/lib/move_base/move_base
+/home/rpp/rpp_ws/devel/.private/move_base/lib/pkgconfig/move_base.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/move_base.pc
+/home/rpp/rpp_ws/devel/.private/move_base/lib/python3/dist-packages/move_base/__init__.py /home/rpp/rpp_ws/devel/lib/python3/dist-packages/move_base/__init__.py
+/home/rpp/rpp_ws/devel/.private/move_base/lib/python3/dist-packages/move_base/cfg/MoveBaseConfig.py /home/rpp/rpp_ws/devel/lib/python3/dist-packages/move_base/cfg/MoveBaseConfig.py
+/home/rpp/rpp_ws/devel/.private/move_base/lib/python3/dist-packages/move_base/cfg/__init__.py /home/rpp/rpp_ws/devel/lib/python3/dist-packages/move_base/cfg/__init__.py
+/home/rpp/rpp_ws/devel/.private/move_base/share/move_base/docs/MoveBaseConfig-usage.dox /home/rpp/rpp_ws/devel/share/move_base/docs/MoveBaseConfig-usage.dox
+/home/rpp/rpp_ws/devel/.private/move_base/share/move_base/docs/MoveBaseConfig.wikidoc /home/rpp/rpp_ws/devel/share/move_base/docs/MoveBaseConfig.wikidoc
+/home/rpp/rpp_ws/devel/.private/move_base/share/move_base/docs/MoveBaseConfig.dox /home/rpp/rpp_ws/devel/share/move_base/docs/MoveBaseConfig.dox
+/home/rpp/rpp_ws/devel/.private/move_base/share/move_base/cmake/move_baseConfig.cmake /home/rpp/rpp_ws/devel/share/move_base/cmake/move_baseConfig.cmake
+/home/rpp/rpp_ws/devel/.private/move_base/share/move_base/cmake/move_baseConfig-version.cmake /home/rpp/rpp_ws/devel/share/move_base/cmake/move_baseConfig-version.cmake

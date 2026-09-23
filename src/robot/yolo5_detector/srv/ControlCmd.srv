@@ -1,0 +1,5 @@
+# goal definition
+string command
+---
+int16 status
+string message

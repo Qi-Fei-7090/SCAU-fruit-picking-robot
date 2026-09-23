@@ -1,0 +1,534 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /TF1
+        - /TF1/Frames1
+      Splitter Ratio: 0.5
+    Tree Height: 555
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        antenna_1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        antenna_2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        antenna_3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_Link1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_Link2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_Link3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_Link4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_Link5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_Link6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm_link_eef:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_black_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        cam_p1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        cam_p2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        cam_p3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        cam_p4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        cam_p5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_accel_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_accel_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_bottom_screw_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_color_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_color_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_gyro_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_gyro_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gripper_Link1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gripper_Link11:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gripper_Link2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gripper_Link22:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gripper_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        navi_tool_black_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        navi_tool_silver_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        power_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        antenna_1_link:
+          Value: false
+        antenna_2_link:
+          Value: false
+        antenna_3_link:
+          Value: false
+        arm_Link1:
+          Value: false
+        arm_Link2:
+          Value: false
+        arm_Link3:
+          Value: false
+        arm_Link4:
+          Value: false
+        arm_Link5:
+          Value: false
+        arm_Link6:
+          Value: false
+        arm_base_link:
+          Value: false
+        arm_link:
+          Value: false
+        arm_link_eef:
+          Value: false
+        base_black_link:
+          Value: false
+        base_link:
+          Value: false
+        cam_p1:
+          Value: false
+        cam_p2:
+          Value: false
+        cam_p3:
+          Value: false
+        cam_p4:
+          Value: false
+        cam_p5:
+          Value: false
+        camera_accel_frame:
+          Value: false
+        camera_accel_optical_frame:
+          Value: false
+        camera_bottom_screw_frame:
+          Value: false
+        camera_color_frame:
+          Value: false
+        camera_color_optical_frame:
+          Value: false
+        camera_depth_frame:
+          Value: false
+        camera_depth_optical_frame:
+          Value: false
+        camera_gyro_frame:
+          Value: false
+        camera_gyro_optical_frame:
+          Value: false
+        camera_infra1_frame:
+          Value: false
+        camera_infra1_optical_frame:
+          Value: false
+        camera_infra2_frame:
+          Value: false
+        camera_infra2_optical_frame:
+          Value: false
+        camera_link:
+          Value: false
+        front_left_wheel_link:
+          Value: false
+        front_right_wheel_link:
+          Value: false
+        gripper_Link1:
+          Value: false
+        gripper_Link11:
+          Value: false
+        gripper_Link2:
+          Value: false
+        gripper_Link22:
+          Value: false
+        gripper_base_link:
+          Value: false
+        imu_link:
+          Value: false
+        laser_link:
+          Value: false
+        navi_tool_black_link:
+          Value: false
+        navi_tool_silver_link:
+          Value: false
+        power_link:
+          Value: false
+        rear_left_wheel_link:
+          Value: false
+        rear_right_wheel_link:
+          Value: false
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        base_link:
+          antenna_1_link:
+            {}
+          antenna_2_link:
+            {}
+          antenna_3_link:
+            {}
+          arm_link:
+            arm_base_link:
+              arm_Link1:
+                arm_Link2:
+                  arm_Link3:
+                    arm_Link4:
+                      arm_Link5:
+                        arm_Link6:
+                          arm_link_eef:
+                            cam_p1:
+                              {}
+                            cam_p2:
+                              {}
+                            cam_p3:
+                              camera_bottom_screw_frame:
+                                camera_link:
+                                  camera_accel_frame:
+                                    camera_accel_optical_frame:
+                                      {}
+                                  camera_color_frame:
+                                    camera_color_optical_frame:
+                                      {}
+                                  camera_depth_frame:
+                                    camera_depth_optical_frame:
+                                      {}
+                                  camera_gyro_frame:
+                                    camera_gyro_optical_frame:
+                                      {}
+                                  camera_infra1_frame:
+                                    camera_infra1_optical_frame:
+                                      {}
+                                  camera_infra2_frame:
+                                    camera_infra2_optical_frame:
+                                      {}
+                            cam_p4:
+                              {}
+                            cam_p5:
+                              {}
+                          gripper_base_link:
+                            gripper_Link1:
+                              gripper_Link11:
+                                {}
+                            gripper_Link2:
+                              gripper_Link22:
+                                {}
+          base_black_link:
+            {}
+          front_left_wheel_link:
+            {}
+          front_right_wheel_link:
+            {}
+          imu_link:
+            {}
+          laser_link:
+            {}
+          navi_tool_black_link:
+            {}
+          navi_tool_silver_link:
+            {}
+          power_link:
+            {}
+          rear_left_wheel_link:
+            {}
+          rear_right_wheel_link:
+            {}
+      Update Interval: 0
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: base_link
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 1.2575972080230713
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0.1084294319152832
+        Y: -0.11202438920736313
+        Z: 1.2315629720687866
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.2853984236717224
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+      Yaw: 5.70357608795166
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 846
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd000000040000000000000156000002b4fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b000002b4000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000002b4fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b000002b4000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004b00000003efc0100000002fb0000000800540069006d00650100000000000004b00000024400fffffffb0000000800540069006d006501000000000000045000000000000000000000023f000002b400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1200
+  X: 67
+  Y: 27

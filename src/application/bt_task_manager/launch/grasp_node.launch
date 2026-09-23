@@ -1,0 +1,29 @@
+<launch>
+    
+    <arg name="move_group_name" default="jaka_minicobo"/>
+    <arg name="gripper_name"    default="jaka_gripper"/>
+    <arg name="target_frame"    default="yolo5_obj_camera_1"/>
+    <arg name="base_frame"    default="base_link"/>
+    <arg name="camera_frame"    default="camera_color_optical_frame"/>
+    
+    <arg name="tcp_offset_z"     default="-0.15" doc="tcp center offset between move-group-eef in z"/>
+    <arg name="arm_feed_depth"  default="0.12" doc="pick feed in and back out depth"/>
+    <arg name="grasp_angles_x"  default="0" doc="gripper pick orient, eular angles in x"/>
+    <arg name="grasp_angles_y"  default="91" doc="gripper pick orient, eular angles in y"/>
+    <arg name="grasp_angles_z"  default="0" doc="gripper pick orient, eular angles in z"/>
+
+      <param name="/pick_target_type" type="int" value="0"/>
+
+    <node pkg="bt_task_manager" type="grasp_node" name="grasp_node" output="screen">
+        <param name="move_group_name" value="$(arg move_group_name)" />
+        <param name="gripper_name"    value="$(arg gripper_name)" />
+        <param name="target_frame"    value="$(arg target_frame)" />
+        <param name="base_frame"    value="$(arg base_frame)" />
+        <param name="camera_frame"  value="$(arg camera_frame)"/>
+        <param name="arm_feed_depth"  value="$(arg arm_feed_depth)" />
+         <param name="tcp_offset_z"  value="$(arg tcp_offset_z)" />
+        <param name="grasp_angles_x"  value="$(arg grasp_angles_x)"/>
+        <param name="grasp_angles_y"  value="$(arg grasp_angles_y)"/>
+        <param name="grasp_angles_z"  value="$(arg grasp_angles_z)"/>
+    </node>
+</launch>

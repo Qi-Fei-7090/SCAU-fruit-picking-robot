@@ -1,0 +1,233 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+import sys
+
+import rospy
+import py_trees
+import py_trees_ros
+
+import std_msgs.msg as std_msgs
+from bt_task_manager.get_grasp_pose import *
+from bt_task_manager.get_grasp_pose_from_topic import *
+from bt_task_manager.gripper import *
+from bt_task_manager.moveit_arm import *
+
+"""
+use dynamic subtrees to control workflow
+tree struct:
+                |root seq|
+                /         \
+        |work subTree |  |  idle  |
+
+tick loop:
+    |pre tick| : handle cmd except "stop", insert subTree to root seq
+    |tick|
+    |post tick| : handle "stop" cmd, pune subTree from root seq 
+
+referenced from py_trees_ros/tutorials/eight.py
+
+cmd : "pick", "place", "loop", "stop", "reset", "gripper_open", "gripper_close"
+return : 1-success; 0 - activing; -1 - aborted(执行失败)
+"""
+
+class GraspServer:
+    def __init__(self):
+        self.move_group_name = rospy.get_param('~move_group_name','left_arm')
+        self.gripper_name = rospy.get_param('~gripper_name','left_gripper')
+        self.gripper_action_ns = rospy.get_param('~gripper_action_ns','/left_arm/xarm_gripper/gripper_action')
+        self.target_frame = rospy.get_param('~target_frame','yolo5_obj_left_hand_camera_1')
+        self.base_frame = rospy.get_param('~base_frame','base_link')
+        self.camera_frame = rospy.get_param('~camera_frame','camera_color_optical_frame')
+        self.tcp_offset_x = rospy.get_param('~tcp_offset_x',0.0)
+        self.tcp_offset_y = rospy.get_param('~tcp_offset_y',-0.005)
+        self.tcp_offset_z = rospy.get_param('~tcp_offset_z',-0.15) # add gripper offset
+        self.arm_feed_depth = rospy.get_param('~arm_feed_depth',0.12)
+        self.grasp_angles_x = rospy.get_param('~grasp_angles_x',0)
+        self.grasp_angles_y = rospy.get_param('~grasp_angles_y',-90)
+        self.grasp_angles_z = rospy.get_param('~grasp_angles_z',180)
+        self.grasp_angles = [self.grasp_angles_x,self.grasp_angles_y,self.grasp_angles_z]
+        self.running = False
+        self.loop = False
+        self.cmd = None
+        self.current_job = None
+        self.cmd_sub = rospy.Subscriber("~cmd", std_msgs.String, self.recv_cmd_callback)
+        self.status_pub = rospy.Publisher("~status", std_msgs.Int16, queue_size=5)
+        self.tree = py_trees_ros.trees.BehaviourTree(self.create_root_tree())
+        self.snapshot_visitor = py_trees.visitors.SnapshotVisitor()
+        self.tree.visitors.append(self.snapshot_visitor)
+        self.tree.add_pre_tick_handler(self.pre_tick_handler)
+        self.tree.add_post_tick_handler(self.post_tick_handler)
+        py_trees.logging.level = py_trees.logging.Level.INFO
+        if not self.tree.setup(10.0):
+            rospy.logerr("failed to setup the root tree, aborting.")
+            sys.exit(1)
+
+    def create_root_tree(self):
+        root = py_trees.composites.Selector("Root")
+        idle = py_trees.behaviours.Running(name="Idle")
+        root.add_children(children=[idle])
+        return root
+
+    def create_pick_tree(self):
+        seq = py_trees.composites.Sequence("Pick")
+        seq.add_children(
+            [
+                Gripper("open gripper", self.gripper_name, "open"),
+                ArmMoveToName("move to detect pose", self.move_group_name, goal="detect_pose"),
+                GetGraspPoseByTopic( #循环获取位姿
+                    "get grasp pose",
+                    base_frame=self.base_frame,
+                    camera_frame=self.camera_frame,
+                    target_type="",
+                    out_frame="grasp_pose",
+                    feed_depth=self.arm_feed_depth,
+                    offset_x=self.tcp_offset_x,
+                    offset_y=self.tcp_offset_y,
+                    offset_z=self.tcp_offset_z,
+                    grasp_angles=self.grasp_angles
+                ),
+                ArmMovetoPose("move to grasp pose", self.move_group_name, goal_name="grasp_pose"),
+                ArmMoveEndInCartesian("feed in", self.move_group_name, goal=[0, 0, self.arm_feed_depth, 0, 0, 0]),
+                Gripper("open gripper", self.gripper_name,"close"),
+                ArmMoveEndInCartesian("feed out", self.move_group_name, goal=[0, 0, -self.arm_feed_depth, 0, 0, 0]),
+                ArmMoveToName("move to reset", self.move_group_name, goal="reset_pose"),
+            ]
+        )
+        return seq
+
+    def create_place_tree(self):
+        seq = py_trees.composites.Sequence("Place")
+        seq.add_children(
+            [
+                ArmMoveToName("move to place pose", self.move_group_name, goal="place_pose"),
+                Gripper("open gripper", self.gripper_name,"open"),
+                ArmMoveToName("move to reset", self.move_group_name, goal="reset_pose"),
+            ]
+        )
+        return seq
+
+    def create_pick_and_place_tree(self):
+        seq = py_trees.composites.Sequence("Pick and Place")
+        seq.add_children(
+            [
+                Gripper("open gripper", self.gripper_name, "open"),
+                ArmMoveToName("move to detect pose", self.move_group_name, goal="detect_pose"),
+                GetGraspPoseByTopic(
+                    "get grasp pose",
+                    base_frame=self.base_frame,
+                    camera_frame=self.camera_frame,
+                    target_type="",
+                    out_frame="grasp_pose",
+                    feed_depth=self.arm_feed_depth,
+                    offset_x=self.tcp_offset_x,
+                    offset_y=self.tcp_offset_y,
+                    offset_z=self.tcp_offset_z,
+                    grasp_angles=self.grasp_angles
+                ),
+                ArmMovetoPose("move to grasp pose", self.move_group_name, goal_name="grasp_pose"),
+                ArmMoveEndInCartesian("feed in", self.move_group_name, goal=[0, 0, self.arm_feed_depth, 0, 0, 0]),
+                Gripper("open gripper", self.gripper_name, "close"),
+                ArmMoveEndInCartesian("feed out", self.move_group_name, goal=[0, 0, -self.arm_feed_depth, 0, 0, 0]),
+                ArmMoveToName("move to place pose", self.move_group_name, goal="place_pose"),
+                Gripper("open gripper", self.gripper_name, "open"),
+            ]
+        )
+        return seq
+
+    def create_work_tree(self, cmd):
+        if cmd == "pick":
+            return self.create_pick_tree()
+        elif cmd == "place":
+            return self.create_place_tree()
+        elif cmd == "loop":
+            return self.create_pick_and_place_tree()
+        elif cmd == "reset":
+            return ArmMoveToName("move to reset", self.move_group_name, goal="reset_pose")
+        elif cmd == "gripper_open":
+            return Gripper("open gripper", self.gripper_name, "open")
+        elif cmd == "gripper_close":
+            return Gripper("close gripper", self.gripper_name, "close")
+        else:
+            return None
+
+    def pre_tick_handler(self, tree):
+        # rospy.loginfo("running!")
+        if not self.cmd or self.cmd == "stop":
+            return
+        # deel start cmd
+        if not self.current_job:
+            self.current_job = self.create_work_tree(self.cmd)
+            if not self.current_job or not self.current_job.setup(timeout=15):
+                rospy.logerr("{0}: failed to setup".format(self.current_job.name))
+                self.cmd = None
+                self.running = False
+                self.loop = False
+                self.current_job = None
+                return
+            tree.insert_subtree(self.current_job, tree.root.id, 0)
+            self.cmd = None
+            return
+
+    def post_tick_handler(self, tree):
+        if not self.running:
+            return
+        # rospy.loginfo(py_trees.display.ascii_tree(tree.root, snapshot_information=self.snapshot_visitor))
+        job = tree.root.children[-2]
+        if job.status == py_trees.common.Status.RUNNING:
+            # deel stop cmd in running
+            if self.cmd == "stop":
+                rospy.loginfo("Stop!")
+                tree.prune_subtree(job.id)
+                self.cmd = None
+                self.running = False
+                self.loop = False
+                self.current_job = None
+                self.status_pub.publish(1)
+                return
+            self.status_pub.publish(0)
+        elif job.status == py_trees.common.Status.SUCCESS:
+            rospy.loginfo("Success!")
+            if self.loop == True:
+                return
+            tree.prune_subtree(job.id)
+            self.cmd = None
+            self.running = False
+            self.loop = False
+            self.current_job = None
+            self.status_pub.publish(1)
+        elif tree.root.status == py_trees.common.Status.FAILURE:
+            rospy.loginfo("Failed!")
+            tree.prune_subtree(job.id)
+            self.cmd = None
+            self.running = False
+            self.loop = False
+            self.current_job = None
+            self.status_pub.publish(-1)
+
+    def recv_cmd_callback(self, msg):
+        if msg.data == "":
+            return
+        if self.running:
+            if msg.data == "stop":
+                self.cmd = msg.data
+            return
+        self.cmd = msg.data
+        if self.cmd == "loop":
+            self.loop = True
+        self.running = True
+
+    def tick_tock(self):
+        self.tree.tick_tock(100)
+
+
+if __name__ == "__main__":
+    # Start ROS node
+    rospy.init_node("grasp_node")
+    rospy.loginfo("grasp node start.")
+
+    grasp_server = GraspServer()
+
+    grasp_server.tick_tock()
+
+    rospy.spin()

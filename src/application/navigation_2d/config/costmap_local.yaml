@@ -1,0 +1,20 @@
+global_frame: odom
+robot_base_frame: base_link
+transform_tolerance: 0.5
+update_frequency: 5.0
+publish_frequency: 2.0
+rolling_window: true
+always_send_full_costmap: false
+width: 5.0
+height: 5.0
+resolution: 0.025
+plugins:
+  - {name: obstacle_layer,    type: "costmap_2d::ObstacleLayer"}
+  - {name: inflation_layer,   type: "costmap_2d::InflationLayer"}
+
+inflation_layer:
+  enabled: true  # 启用膨胀层
+  cost_scaling_factor: 6  #5# 成本缩放因子，值越大，膨胀的障碍物区域的成本上升越快
+  #inflation_radius: 0.35
+  inflation_radius: 0.25  # 膨胀半径为05.米  #local 0.1  global_costmap 0.5
+  inflate_unknown: false  # 不膨胀未知区域

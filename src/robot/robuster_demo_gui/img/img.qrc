@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/show">
+        <file>robusterDebuggingAssistant.png</file>
+        <file>sorting.png</file>
+        <file>Palletizing.png</file>
+        <file>apple.png</file>
+        <file>seting.png</file>
+    </qresource>
+</RCC>

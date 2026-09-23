@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mmc1">
+  <xacro:arg name="dof" default="6" />
+  <xacro:arg name="prefix" default="arm_"/>
+  <xacro:arg name="use_nominal_extrinsics" default="true"/>
+  <xacro:arg name="attach_to" default="arm_link" />
+  <xacro:arg name="gripper" default="false" />
+
+  <!-- include robot base -->
+  <xacro:include filename="$(find mmc1_description)/urdf/mmc1_mr_description.urdf" />
+  <xacro:include filename="$(find realsense_gazebo_description)/urdf/_d435i.urdf.xacro"/>
+
+  <xacro:include filename="$(find jaka_description)/urdf/jaka_minicobo.urdf" />
+  <joint name="attach_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 3.14" />
+    <parent link="arm_link" />
+    <child link="Link_0" />
+  </joint>  
+
+  <xacro:include filename="$(find mmc1_description)/urdf/gripper.urdf" />
+  <joint name="gripper_joint" type="fixed">
+    <origin xyz="-0.029 -0.029 0.002" rpy="0.0 0.0 0" />
+    <parent link="Link_6" />
+    <child link="gripper_link" />
+  </joint>  
+
+  <xacro:include filename="$(find mmc1_description)/urdf/eef.urdf.xacro"/>
+  <xacro:eef_urdf prefix="$(arg prefix)" parent="Link_6" >
+    <origin xyz="0 0 0.011" rpy="0 0 1.57"/>
+  </xacro:eef_urdf>
+
+    <xacro:sensor_d435i parent="cam_p3" align_depth="true"
+      color_width="640"
+      color_height="480"
+      color_fps="30"
+      depth_width="640"
+      depth_height="480"
+      depth_fps="30">
+      <origin xyz="0 -0.012 0.012" rpy="0 -1.57 -1.57" />
+  </xacro:sensor_d435i>
+  <!-- <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+  <xacro:sensor_d435i parent="cam_p3" use_nominal_extrinsics="$(arg use_nominal_extrinsics)" >
+    <origin xyz="0.0 0.0 0.002" rpy=" 0.264591 -1.56027 -1.82104658"/>
+  </xacro:sensor_d435i> -->
+  
+</robot>

@@ -1,0 +1,9 @@
+<launch>
+  <include file="$(find robot_bringup)/launch/robot_driver.launch" />
+  <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
+    <rosparam command="load" file="$(find navigation_2d)/config/mapper_params_online_async.yaml" />
+  </node>
+  <node pkg="rviz" name="rviz_mapping" type="rviz"
+    args="-d $(env HOME)/rpp_data/rviz/rpp_mapping.rviz" />
+
+</launch>

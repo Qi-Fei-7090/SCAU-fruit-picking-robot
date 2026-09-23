@@ -1,0 +1,5 @@
+navigation/navigation/fake_localization
+/home/rpp/rpp_ws/devel/.private/fake_localization/lib/fake_localization/fake_localization /home/rpp/rpp_ws/devel/lib/fake_localization/fake_localization
+/home/rpp/rpp_ws/devel/.private/fake_localization/lib/pkgconfig/fake_localization.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/fake_localization.pc
+/home/rpp/rpp_ws/devel/.private/fake_localization/share/fake_localization/cmake/fake_localizationConfig-version.cmake /home/rpp/rpp_ws/devel/share/fake_localization/cmake/fake_localizationConfig-version.cmake
+/home/rpp/rpp_ws/devel/.private/fake_localization/share/fake_localization/cmake/fake_localizationConfig.cmake /home/rpp/rpp_ws/devel/share/fake_localization/cmake/fake_localizationConfig.cmake

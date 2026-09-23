@@ -1,0 +1,4 @@
+int8 msg
+---
+int8 state
+string message

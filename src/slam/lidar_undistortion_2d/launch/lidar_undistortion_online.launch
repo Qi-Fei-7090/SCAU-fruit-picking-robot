@@ -1,0 +1,59 @@
+<launch>
+  <!-- Define arguments with default values -->
+  <arg name="use_remap_scan" default="true" />
+  <arg name="rviz_display" default="false"/>
+  <arg name="lidar_topic" default="/front_scan"/>
+  <arg name="lidar_msg_delay_time" default="50.0"/>
+  <arg name="scan_direction_clockwise" default="true"/>
+  <arg name="imu_topic" default="/imu/data"/>
+  <arg name="imu_frequency" default="100.0"/>
+  <arg name="output_frame_id" default="laser_F_link"/>
+  <arg name="pub_raw_scan_pointcloud" default="false"/>
+  <arg name="pub_laserscan" default="true"/>
+  <arg name="laserscan_angle_increment" default="0.00418878998607"/>
+  <arg name="use_range_filter" default="true"/>
+  <arg name="range_filter_min" default="0.1"/>
+  <arg name="range_filter_max" default="20.0"/>
+  <arg name="use_angle_filter" default="true"/>
+  <!-- -2.356 & 2.356 -->
+  <arg name="angle_filter_min" default="-2.356"/>
+  <arg name="angle_filter_max" default="2.356"/>
+
+  <arg name="use_radius_outlier_filter" default="true"/>
+  
+  <arg name="radius_outlier_filter_search_radius" default="0.1"/>
+  <arg name="radius_outlier_filter_min_neighbors" default="8"/>
+
+  <!-- Node with parameters passed as arguments -->
+
+    <node name="lidar_undistortion_node" pkg="lidar_undistortion" type="lidar_undistortion" output="screen">
+      <param name="lidar_topic" value="$(arg lidar_topic)"/>
+      <param name="lidar_msg_delay_time" value="$(arg lidar_msg_delay_time)"/>
+      <param name="scan_direction_clockwise" value="$(arg scan_direction_clockwise)"/>
+      <param name="imu_topic" value="$(arg imu_topic)"/>
+      <param name="imu_frequency" value="$(arg imu_frequency)"/>
+      <param name="output_frame_id" value="$(arg output_frame_id)"/>
+      <param name="pub_raw_scan_pointcloud" value="$(arg pub_raw_scan_pointcloud)"/>
+      <param name="pub_laserscan" value="$(arg pub_laserscan)"/>
+      <param name="laserscan_angle_increment" value="$(arg laserscan_angle_increment)"/>
+      <param name="use_range_filter" value="$(arg use_range_filter)"/>
+      <param name="range_filter_min" value="$(arg range_filter_min)"/>
+      <param name="range_filter_max" value="$(arg range_filter_max)"/>
+      <param name="use_angle_filter" value="$(arg use_angle_filter)"/>
+      <param name="angle_filter_min" value="$(arg angle_filter_min)"/>
+      <param name="angle_filter_max" value="$(arg angle_filter_max)"/>
+      <param name="use_radius_outlier_filter" value="$(arg use_radius_outlier_filter)"/>
+      <param name="radius_outlier_filter_search_radius" value="$(arg radius_outlier_filter_search_radius)"/>
+      <param name="radius_outlier_filter_min_neighbors" value="$(arg radius_outlier_filter_min_neighbors)"/>
+      <remap if="$(arg use_remap_scan)" from="/lidar_undistortion/scan" to="/scan" />
+
+    </node>
+
+
+  <!-- Conditionally launch rviz if rviz_display is true -->
+  <group if="$(arg rviz_display)">
+     <node pkg="rviz" type="rviz" name="rviz"
+       args="-d $(find lidar_undistortion)/rviz/lidar_undistortion.rviz" />
+  </group>
+
+</launch>

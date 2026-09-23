@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="eef_urdf" params="prefix parent *origin" >
+
+    <link name="${prefix}link_eef">
+      <inertial>
+        <origin
+          xyz="2.4959E-19 0.001 -0.03799"
+          rpy="0 0 0" />
+        <mass value="0.037689" />
+        <inertia
+          ixx="6.1081E-05"
+          ixy="1.0489E-21"
+          ixz="-1.0444E-21"
+          iyy="7.3535E-05"
+          iyz="-4.3256E-20"
+          izz="1.248E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 -0.01"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://mmc1_description/meshes/camera_mount.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.89804 0.91765 0.92941 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 -0.01"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://mmc1_description/meshes/camera_mount.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint
+      name="${prefix}joint_eef"
+      type="fixed">
+      <!-- <origin
+        xyz="0 0 0"
+        rpy="0 0 0" /> -->
+      <xacro:insert_block name="origin" />
+      <parent
+        link="${parent}" />
+      <child
+        link="${prefix}link_eef" />
+    </joint>
+
+    <link name="cam_p1" />
+    <joint name="joint_cam_p1" type="fixed">
+      <origin
+        xyz="0 0.0555 0"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}link_eef" />
+      <child
+        link="cam_p1" />
+    </joint>
+
+    <link name="cam_p2" />
+    <joint name="joint_cam_p2" type="fixed">
+      <origin
+        xyz="0 0.0655 0 "
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}link_eef" />
+      <child
+        link="cam_p2" />
+    </joint>
+
+    <link name="cam_p3" />
+    <joint name="joint_cam_p3" type="fixed">
+      <origin
+        xyz="0 0.0755 0"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}link_eef" />
+      <child
+        link="cam_p3" />
+    </joint>
+
+    <link name="cam_p4" />
+    <joint name="joint_cam_p4" type="fixed">
+      <origin
+        xyz="0 0.0855 0"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}link_eef" />
+      <child
+        link="cam_p4" />
+    </joint>
+
+    <link name="cam_p5" />
+    <joint name="joint_cam_p5" type="fixed">
+      <origin
+        xyz="0 0.0955 0"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}link_eef" />
+      <child
+        link="cam_p5" />
+    </joint>
+
+  </xacro:macro>
+</robot>

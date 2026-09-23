@@ -1,0 +1,58 @@
+# costmap - 机器人的轮廓形状
+footprint: [[-0.3125, -0.295], [-0.3125, 0.295], [0.3125, 0.295], [0.3125, -0.295]]  
+# 机器人尺寸为：长625×宽590×高465mm
+# robot_radius: 0.5  # 机器人半径可以用于圆形的机器人描述
+footprint_padding: 0.01  # 给轮廓添加0.01米的额外安全距离
+
+obstacle_range: 10.0  # 最大障碍物检测范围，10米以内的障碍物会被标记
+raytrace_range: 15.0  # 最大射线追踪范围，用于清除障碍物
+
+# costmap - 地图参数
+# width:  # 地图的宽度
+# height:  # 地图的高度
+# resolution:  # 地图的分辨率，通常为每像素的实际距离
+# origin_x:  # 地图在世界坐标系中的原点x坐标
+# origin_y:  # 地图在世界坐标系中的原点y坐标
+
+# 插件定义
+# plugins:
+#   - {name: static_layer,      type: "costmap_2d::StaticLayer"}  # 静态地图层，通常用于表示固定的环境地图
+#   - {name: voxel_layer,       type: "costmap_2d::VoxelLayer"}  # 体素层，用于处理3D障碍物信息
+#   - {name: obstacle_layer,    type: "costmap_2d::ObstacleLayer"}  # 动态障碍物层，用于检测动态障碍物
+#   - {name: inflation_layer,   type: "costmap_2d::InflationLayer"}  # 膨胀层，用于给障碍物添加膨胀边界
+
+# 各图层的配置
+
+static_layer:
+  map_topic: /map  # 从话题 /map 订阅静态地图
+  subscribe_to_updates: true  # 是否订阅地图的更新
+
+obstacle_layer:
+  enabled: true  # 启用障碍物层
+  # footprint_clearing_enabled: true  # 是否使用机器人的轮廓来清除障碍物
+  # max_obstacle_height: 1.4  # 障碍物的最大高度
+  observation_sources: laser  # 使用激光雷达作为观测源
+  track_unknown_space:  true # 跟踪未知空间，设置为 true 以禁用通过未知空间的全局路径规划
+  laser: 
+    data_type: LaserScan  # 数据类型为激光扫描
+    clearing: true  # 清除激光扫描路径中的障碍物
+    marking: true  # 标记激光扫描检测到的障碍物
+    topic: /lidar_undistortion/scan  # 激光雷达数据的话题
+    inf_is_valid: false  # 无穷远值不被认为是有效的
+    track_unknown_space:  true # 跟踪未知空间，设置为 true 以禁用通过未知空间的全局路径规划
+
+voxel_layer:
+  enabled: false  # 体素层未启用
+  # footprint_clearing_enabled: true  # 是否使用机器人的轮廓来清除障碍物
+  max_obstacle_height: 1.4  # 障碍物的最大高度为1.4米
+  origin_z: 0  # 地图的Z轴原点
+  z_resolution: 0  # Z轴方向的分辨率2d no
+  z_voxels: 0  # Z轴方向的体素数 2d no
+  unknown_threshold: 10  # 不确定区域的阈值
+  mark_threshold: 0  # 标记体素的阈值
+
+
+inflation_layer:
+  inflate_unknown: false  # 不膨胀未知区域
+
+

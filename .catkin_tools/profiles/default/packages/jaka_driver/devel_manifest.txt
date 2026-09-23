@@ -1,0 +1,8 @@
+manipulator/jaka_robot/jaka_driver
+/home/rpp/rpp_ws/devel/.private/jaka_driver/lib/pkgconfig/jaka_driver.pc /home/rpp/rpp_ws/devel/lib/pkgconfig/jaka_driver.pc
+/home/rpp/rpp_ws/devel/.private/jaka_driver/lib/jaka_driver/servoj_demo /home/rpp/rpp_ws/devel/lib/jaka_driver/servoj_demo
+/home/rpp/rpp_ws/devel/.private/jaka_driver/lib/jaka_driver/client /home/rpp/rpp_ws/devel/lib/jaka_driver/client
+/home/rpp/rpp_ws/devel/.private/jaka_driver/lib/jaka_driver/sdk_test /home/rpp/rpp_ws/devel/lib/jaka_driver/sdk_test
+/home/rpp/rpp_ws/devel/.private/jaka_driver/lib/jaka_driver/jaka_driver /home/rpp/rpp_ws/devel/lib/jaka_driver/jaka_driver
+/home/rpp/rpp_ws/devel/.private/jaka_driver/share/jaka_driver/cmake/jaka_driverConfig-version.cmake /home/rpp/rpp_ws/devel/share/jaka_driver/cmake/jaka_driverConfig-version.cmake
+/home/rpp/rpp_ws/devel/.private/jaka_driver/share/jaka_driver/cmake/jaka_driverConfig.cmake /home/rpp/rpp_ws/devel/share/jaka_driver/cmake/jaka_driverConfig.cmake

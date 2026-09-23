@@ -1,0 +1,4 @@
+SingleLightState front_light
+SingleLightState rear_light
+SingleLightState left_light
+SingleLightState right_light

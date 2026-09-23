@@ -1,0 +1,40 @@
+<launch>
+    <arg name="add_realsense_d435i_mode" default="eye_on_hand" />
+    <arg name="camera1_serial_no" default="238722072768" /><!--eye_on_hand camera -->
+    <arg name="camera2_serial_no" default="238722072768" /><!--eye_to_hand camera -->
+    <arg name="align_depth" default="true" /><!--eye_to_hand camera -->
+    <arg name="camera" default="camera" />
+    <!-- realsense camera driver-->
+    <arg name="two_camera_mode"
+        default="$(eval 'true' if arg('add_realsense_d435i_mode') == 'both' else 'false')" />
+    <!--run two-->
+
+    <arg if="$(arg two_camera_mode)" name="cam_mode1" default="false" />
+    <arg unless="$(arg two_camera_mode)" name="cam_mode1"
+        default="$(eval 'true' if arg('add_realsense_d435i_mode') == 'eye_on_hand' else 'false')" />
+    <include if="$(arg cam_mode1)" file="$(find realsense2_camera)/launch/rs_camera.launch"><!--d435-->
+        <arg name="serial_no" default="$(arg camera1_serial_no)" />
+        <arg name="camera" default="$(arg camera)" />
+        <arg name="color_width" default="640" />
+        <arg name="color_height" default="480" />
+        <arg name="color_fps" default="30" />
+        <arg name="align_depth" default="$(arg align_depth)" />
+    </include>
+
+    <arg if="$(arg two_camera_mode)" name="cam_mode2" default="false" />
+    <arg unless="$(arg two_camera_mode)" name="cam_mode2"
+        default="$(eval 'true' if arg('add_realsense_d435i_mode') == 'eye_to_hand' else 'false')" />
+    <include if="$(arg cam_mode2)" file="$(find realsense2_camera)/launch/rs_camera.launch"><!--d435-->
+        <arg name="serial_no" default="$(arg camera2_serial_no)" />
+        <arg name="camera" default="$(arg camera)" />
+        <arg name="color_width" default="640" />
+        <arg name="color_height" default="480" />
+        <arg name="color_fps" default="30" />
+        <arg name="align_depth" default="$(arg align_depth)" />
+    </include>
+
+
+
+</launch>
+  
+  
